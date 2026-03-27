@@ -158,7 +158,7 @@
 <script>
   const SUPABASE_URL = 'https://asazslrvijfzewuyuaeo.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzYXpzbHJ2aWpmemV3dXl1YWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyMTkxMDcsImV4cCI6MjA4Nzc5NTEwN30.2wRS6Bg0kbdFWC_JrtEJI8WdFaCdvsQhRIFzQmEGR5o';
-  const WEBHOOK_URL = 'https://test1.stepconstruct.ro/webhook-test/publisher';
+  const WEBHOOK_URL  = 'https://test1.stepconstruct.ro/webhook/publisher';
 
   let selectedFile = null;
   let platforms = { fb: true, ig: true };
@@ -258,8 +258,8 @@
       formData.append('platforms',     JSON.stringify(platforms));
       formData.append('timestamp',     new Date().toISOString());
 
-      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
-      if (res.ok) {
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: formData, mode: 'no-cors' });
+      if (res.ok || res.type === 'opaque') {
         if (proiectData) {
           await fetch(`${SUPABASE_URL}/rest/v1/proiecte?id=eq.${proiectId}`, {
             method: 'PATCH',
