@@ -258,8 +258,8 @@
       formData.append('platforms',     JSON.stringify(platforms));
       formData.append('timestamp',     new Date().toISOString());
 
-      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: formData, mode: 'no-cors' });
-      if (res.ok || res.type === 'opaque') {
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+      if (res.ok) {
         if (proiectData) {
           await fetch(`${SUPABASE_URL}/rest/v1/proiecte?id=eq.${proiectId}`, {
             method: 'PATCH',
