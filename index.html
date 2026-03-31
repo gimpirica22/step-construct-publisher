@@ -264,7 +264,9 @@
     showStatus('loading', 'Se procesează...', 'Agenții AI analizează fotografia.<br>Vei primi preview pe Telegram în câteva secunde.');
     try {
       const formData = new FormData();
+      const isVideo = selectedFile.type.startsWith('video/');
       formData.append('image',         selectedFile, selectedFile.name);
+      formData.append('media_type',    isVideo ? 'video' : 'image');
       formData.append('proiect_id',    proiectId);
       formData.append('proiect_nume',  proiectData?.nume || 'Proiect nou');
       formData.append('proiect_oras',  proiectData?.oras || '');
