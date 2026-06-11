@@ -308,8 +308,11 @@
     const proiectData = projecteCache.find(x => x.id === proiectId) || null;
     showStatus('loading', 'Se procesează...', 'Agenții AI analizează fotografia.<br>Vei primi preview pe Telegram în câteva secunde.');
     try {
+      const isVideo = selectedFile.type.startsWith('video/') || /\.(mp4|mov|avi|mkv|webm)$/i.test(selectedFile.name);
+      const mediaType = isVideo ? 'video' : 'image';
       const formData = new FormData();
       formData.append('image',         selectedFile, selectedFile.name);
+      formData.append('media_type',    mediaType);
       formData.append('proiect_id',    proiectId);
       formData.append('proiect_nume',  proiectData?.nume || 'Proiect nou');
       formData.append('proiect_oras',  proiectData?.oras || '');
